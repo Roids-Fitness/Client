@@ -1,0 +1,9 @@
+.bg-3A3A41 {
+  background-color: #3a3a41;
+}
+
+.white-text-no-hyperlink {
+  color: white;
+  text-decoration: none;
+  cursor: default;
+}

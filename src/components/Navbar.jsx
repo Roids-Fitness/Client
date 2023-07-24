@@ -1,15 +1,16 @@
 import React, { Component } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { Outlet, Link } from "react-router-dom/dist";
-import {ReactComponent as Logo} from '../logo.svg'
+import { ReactComponent as Logo } from "../logo.svg";
+import "./Navbar.css";
 
 export default class NavbarComponent extends Component {
   render() {
     return (
       <div>
-        <Navbar expand="lg" className="bg-body-tertiary">
+        <Navbar data-bs-theme="dark" expand="lg" className="bg-3A3A41">
           <Container>
-            <Navbar.Brand to={"/"}>
+            <Navbar.Brand href={"/"}>
               <Logo
                 width="50"
                 height="50"
@@ -21,16 +22,18 @@ export default class NavbarComponent extends Component {
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">
                 <Nav.Link>
-                  <Link to={"/"}>Home</Link>
+                  <Link to={"/"} className="white-text-no-hyperlink">Home</Link>
                 </Nav.Link>
                 <Nav.Link>
-                  <Link to={"/class-timetable"}>Classes</Link>
+                  <Link to={"/class-timetable"} className="white-text-no-hyperlink">Classes</Link>
+                </Nav.Link>
+              </Nav>
+              <Nav className="ml-auto">
+                <Nav.Link>
+                  <Link to={"/register"} className="white-text-no-hyperlink">Register</Link>
                 </Nav.Link>
                 <Nav.Link>
-                  <Link to={"/register"}>Register</Link>
-                </Nav.Link>
-                <Nav.Link>
-                  <Link to={"/login"}>Login</Link>
+                  <Link to={"/login"} className="white-text-no-hyperlink">Login</Link>
                 </Nav.Link>
               </Nav>
             </Navbar.Collapse>
