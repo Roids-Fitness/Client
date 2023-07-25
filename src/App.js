@@ -1,12 +1,16 @@
-import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { RouterProvider, createBrowserRouter } from 'react-router-dom/dist';
-import NavbarComponent from './components/Navbar';
-import Home from './components/Home';
-import Calendar from './components/Calendar';
-import Register from './components/Register';
-import Login from './components/Login';
-import ClassDetails from './components/ClassDetails'
+import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import {
+  RouterProvider,
+  createBrowserRouter,
+} from "react-router-dom/dist";
+import NavbarComponent from "./components/Navbar";
+import Home from "./components/Home";
+import Calendar from "./components/Calendar";
+import Register from "./components/Register";
+import Login from "./components/Login";
+import ClassDetails from "./components/ClassDetails";
+import Footer from "./components/Footer";
 
 const router = createBrowserRouter([
   {
@@ -14,32 +18,33 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home />
+        element: <Home />,
       },
       {
         path: "/class-timetable",
-        element: <Calendar />
+        element: <Calendar />,
       },
       {
         path: "/register",
-        element: <Register />
+        element: <Register />,
       },
       {
         path: "/login",
-        element: <Login />
+        element: <Login />,
       },
       {
         path: "/class/:id",
-        element: <ClassDetails />
+        element: <ClassDetails />,
       }
-    ]
-  }
-])
+    ],
+  },
+]);
 
 function App() {
   return (
     <div className="App">
       <RouterProvider router={router} />
+      <Footer/>
     </div>
   );
 }

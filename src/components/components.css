@@ -1,0 +1,33 @@
+.bg-3A3A41 {
+  background-color: #3a3a41;
+}
+
+.white-text-no-hyperlink {
+  color: white;
+  text-decoration: none;
+  cursor: default;
+}
+
+.footer-container {
+  background-color: #3A3A41;
+  padding: 20px;
+  margin-top: auto;
+  flex-grow: 1;
+}
+
+.footer .card {
+  background-color: #3A3A41;
+  border: none;
+  box-shadow: none;
+}
+
+.footer .card-title,
+.footer .card-text {
+  border-top: none;
+  color: #FFFFFF;
+  text-align: center;
+}
+
+.card-group-container {
+  flex-grow: 1;
+}

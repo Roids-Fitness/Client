@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { Outlet, Link } from "react-router-dom/dist";
 import { ReactComponent as Logo } from "../logo.svg";
-import "./Navbar.css";
+import "./components.css";
 
 export default class NavbarComponent extends Component {
   render() {
