@@ -4,7 +4,6 @@
 }
 
 html, body {
-  height: 100%;
   margin: 0;
   font-family: 'Lato', sans-serif;
 }
@@ -31,8 +30,6 @@ html, body {
 .footer-container {
   background-color: #3a3a41;
   padding: 20px;
-  margin-top: auto;
-  flex-grow: 1;
 }
 
 .footer .card {
@@ -58,22 +55,24 @@ html, body {
   src: url('../resources/StagSans-BoldItalic.ttf') format('truetype');
 }
 
-.big-red-text {
-  color: #fe3434;
+.big-text {
   font-family: 'StagSans-BoldItalic', sans-serif;
-  font-size: 100px;
+  font-size: 80px;
   font-style: italic;
   font-weight: bolder;
   line-height: normal;
 }
 
-.big-white-text {
-  color: #fff;
-  font-family: 'StagSans-BoldItalic', sans-serif;
-  font-size: 100px;
-  font-style: italic;
-  font-weight: bolder;
-  line-height: normal;
+@media screen and (max-width: 768px) {
+  .big-text {
+    font-size: 60px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .big-text {
+    font-size: 40px;
+  }
 }
 
 .red-text {
@@ -86,7 +85,7 @@ html, body {
 
 .home-images {
   background:  lightgray 50% / cover no-repeat;
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.5);
   filter: blur(2px);
 }
 
