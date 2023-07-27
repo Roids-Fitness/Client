@@ -1,3 +1,22 @@
+@font-face {
+  font-family: 'Lato';
+  src: url('../resources/Lato-Regular.ttf') format('truetype');
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Lato', sans-serif;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  height: 100%;
+}
+
+/* Navbar CSS*/
 .bg-3A3A41 {
   background-color: #3a3a41;
 }
@@ -8,15 +27,16 @@
   cursor: default;
 }
 
+/* Footer CSS*/
 .footer-container {
-  background-color: #3A3A41;
+  background-color: #3a3a41;
   padding: 20px;
   margin-top: auto;
   flex-grow: 1;
 }
 
 .footer .card {
-  background-color: #3A3A41;
+  background-color: #3a3a41;
   border: none;
   box-shadow: none;
 }
@@ -24,10 +44,49 @@
 .footer .card-title,
 .footer .card-text {
   border-top: none;
-  color: #FFFFFF;
+  color: #ffffff;
   text-align: center;
 }
 
 .card-group-container {
   flex-grow: 1;
 }
+
+/* Home CSS */
+@font-face {
+  font-family: 'StagSans-BoldItalic';
+  src: url('../resources/StagSans-BoldItalic.ttf') format('truetype');
+}
+
+.big-red-text {
+  color: #fe3434;
+  font-family: 'StagSans-BoldItalic', sans-serif;
+  font-size: 100px;
+  font-style: italic;
+  font-weight: bolder;
+  line-height: normal;
+}
+
+.big-white-text {
+  color: #fff;
+  font-family: 'StagSans-BoldItalic', sans-serif;
+  font-size: 100px;
+  font-style: italic;
+  font-weight: bolder;
+  line-height: normal;
+}
+
+.red-text {
+  color: #fe3434;
+}
+
+.white-text {
+  color: white;
+}
+
+.home-images {
+  background:  lightgray 50% / cover no-repeat;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  filter: blur(2px);
+}
+
