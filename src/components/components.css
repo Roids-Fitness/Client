@@ -9,10 +9,16 @@
   src: url("../resources/Lato-Regular.ttf") format("truetype");
 }
 
+@font-face {
+  font-family: "Lato-Bold";
+  src: url("../resources/Lato-Bold.ttf") format("truetype");
+}
+
 html,
 body {
   margin: 0;
   font-family: "Lato", sans-serif;
+  font-size: 16px;
 }
 
 #root {
@@ -20,6 +26,12 @@ body {
   flex-direction: column;
   min-height: 100vh;
   height: 100%;
+}
+
+.title {
+  font-family: "Lato-Bold", sans-serif;
+  font-size: 20px;
+  margin-bottom: 20px;
 }
 
 /* Navbar CSS*/
@@ -36,7 +48,7 @@ body {
 /* Footer CSS*/
 .footer-container {
   background-color: #3a3a41;
-  padding: 20px;
+  padding: 20px 0;
 }
 
 .footer .card {
@@ -52,8 +64,15 @@ body {
   text-align: center;
 }
 
-.card-group-container {
-  flex-grow: 1;
+.centred-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+#copyright-text {
+  margin-top: 20px;
+  color: #B4C0D0;
+  font-size: 12px;
 }
 
 /* Home CSS */
@@ -79,7 +98,7 @@ body {
   filter: blur(2px);
 }
 
-/* Your CSS file */
+/* Register and Login CSS */
 .background-container {
   background-image: url("../resources/register-image1.jpeg");
   background-size: cover;
@@ -105,17 +124,27 @@ body {
   background-color: #f2f2f2;
 }
 
-/* Responsive Design*/
+/* Responsive Design CSS */
+@media screen and (max-width: 1000px) {
+  .big-text {
+    font-size: 80px;
+  }
+}
+
 @media screen and (max-width: 768px) {
   .big-text {
     font-size: 60px;
   }
   .background-container {
-    background-image: none; /* Remove the background image on mobile screens */
+    background-image: none;
   }
 
   .form-container {
-    width: 100%; /* Make the form occupy the full width on mobile screens */
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
   }
 }
 
