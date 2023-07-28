@@ -1,11 +1,18 @@
+/* General Overall */
 @font-face {
-  font-family: 'Lato';
-  src: url('../resources/Lato-Regular.ttf') format('truetype');
+  font-family: "StagSans-BoldItalic";
+  src: url("../resources/StagSans-BoldItalic.ttf") format("truetype");
 }
 
-html, body {
+@font-face {
+  font-family: "Lato";
+  src: url("../resources/Lato-Regular.ttf") format("truetype");
+}
+
+html,
+body {
   margin: 0;
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
 }
 
 #root {
@@ -50,29 +57,12 @@ html, body {
 }
 
 /* Home CSS */
-@font-face {
-  font-family: 'StagSans-BoldItalic';
-  src: url('../resources/StagSans-BoldItalic.ttf') format('truetype');
-}
-
 .big-text {
-  font-family: 'StagSans-BoldItalic', sans-serif;
-  font-size: 80px;
+  font-family: "StagSans-BoldItalic", sans-serif;
+  font-size: 100px;
   font-style: italic;
   font-weight: bolder;
   line-height: normal;
-}
-
-@media screen and (max-width: 768px) {
-  .big-text {
-    font-size: 60px;
-  }
-}
-
-@media screen and (max-width: 576px) {
-  .big-text {
-    font-size: 40px;
-  }
 }
 
 .red-text {
@@ -84,8 +74,53 @@ html, body {
 }
 
 .home-images {
-  background:  lightgray 50% / cover no-repeat;
+  background: lightgray 50% / cover no-repeat;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.5);
   filter: blur(2px);
 }
 
+/* Your CSS file */
+.background-container {
+  background-image: url("../resources/register-image1.jpeg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+}
+
+
+.form-container {
+  flex: 1;
+  max-width: 400px;
+  margin-left: auto;
+  padding: 20px;
+  background-color: #f2f2f2;
+}
+
+/* Responsive Design*/
+@media screen and (max-width: 768px) {
+  .big-text {
+    font-size: 60px;
+  }
+  .background-container {
+    background-image: none; /* Remove the background image on mobile screens */
+  }
+
+  .form-container {
+    width: 100%; /* Make the form occupy the full width on mobile screens */
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .big-text {
+    font-size: 40px;
+  }
+}
