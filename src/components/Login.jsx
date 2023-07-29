@@ -37,7 +37,7 @@ function Login() {
   };
 
   return (
-    <div className="background-container">
+    <div className="background-container" id='login-background-container'>
       <div className="container">
         <div className="form-container">
           <div className="title">Login</div>
