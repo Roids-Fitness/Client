@@ -140,7 +140,13 @@ function Register() {
                 feedbackType="invalid"
               />
             </Form.Group>
-            <Button type="submit">Sign up</Button>
+            <Row>
+              <Col md="12" className="d-flex justify-content-center mt-3">
+                <Button className="button" type="submit">
+                  Sign up
+                </Button>
+              </Col>
+            </Row>
           </Form>
         </div>
       </div>

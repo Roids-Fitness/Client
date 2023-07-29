@@ -34,6 +34,12 @@ body {
   margin-bottom: 20px;
 }
 
+.button {
+  color: #f2f2f2;
+  background-color: #fe3434;
+  border-color: #3a3a41;
+}
+
 /* Navbar CSS*/
 .bg-3A3A41 {
   background-color: #3a3a41;
@@ -115,13 +121,16 @@ body {
   display: flex;
 }
 
-
 .form-container {
   flex: 1;
   max-width: 600px;
   margin-left: auto;
   padding: 20px;
   background-color: #f2f2f2;
+}
+
+.register-link {
+  color: black;
 }
 
 /* Responsive Design CSS */
