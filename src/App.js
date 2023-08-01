@@ -1,4 +1,3 @@
-import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
   RouterProvider,
@@ -6,7 +5,7 @@ import {
 } from "react-router-dom/dist";
 import NavbarComponent from "./components/Navbar";
 import Home from "./components/Home";
-import Calendar from "./components/Calendar";
+import ClassTimetable from "./components/ClassTimetable";
 import Register from "./components/Register";
 import Login from "./components/Login";
 import ClassDetails from "./components/ClassDetails";
@@ -22,7 +21,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/class-timetable",
-        element: <Calendar />,
+        element: <ClassTimetable />,
       },
       {
         path: "/register",
@@ -42,7 +41,7 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <div className="App">
+    <div>
       <RouterProvider router={router} />
       <Footer/>
     </div>

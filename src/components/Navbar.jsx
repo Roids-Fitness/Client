@@ -1,8 +1,8 @@
 import React, { Component } from "react";
+import "./components.css";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { Outlet, Link } from "react-router-dom/dist";
-import { ReactComponent as Logo } from "../logo.svg";
-import "./components.css";
+import { ReactComponent as Logo } from "../resources/logo.svg";
 
 export default class NavbarComponent extends Component {
   render() {
