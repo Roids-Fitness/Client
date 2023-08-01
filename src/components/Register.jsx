@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import "./components.css";
 import { Form, Row, Col, InputGroup, Button} from 'react-bootstrap';
+import { Helmet } from "react-helmet";
 
 
 function Register() {
@@ -17,6 +18,8 @@ function Register() {
   };
 
   return (
+    <>
+    <Helmet><title>Register with us - Roids Fitness Gym</title></Helmet>
     <div className="background-container">
       <div className="container">
         <div className="form-container">
@@ -146,7 +149,7 @@ function Register() {
           </Form>
         </div>
       </div>
-    </div>
+    </div></>
   );
 }
 

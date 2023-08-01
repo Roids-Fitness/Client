@@ -160,6 +160,13 @@ body {
   background-position: center;
 }
 
+/* ClassTimetable CSS */
+.calendar-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+}
+
 /* Responsive Design CSS */
 @media screen and (max-width: 1000px) {
   .big-text {

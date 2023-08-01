@@ -1,49 +1,105 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./components.css";
-import { Calendar, momentLocalizer } from "react-big-calendar";
-import moment from "moment";
-import "react-big-calendar/lib/css/react-big-calendar.css";
+import {
+  DayPilotCalendar,
+  DayPilotNavigator,
+} from "@daypilot/daypilot-lite-react";
+import { Helmet } from "react-helmet";
 
 function ClassTimetable() {
+  const calendarRef = useRef();
 
-  const localizer = momentLocalizer(moment);
+  // eslint-disable-next-line
+  const [calendarConfig, setCalendarConfig] = useState({
+    viewType: "Week",
+    businessBeginsHour: 7,
+    businessEndsHour: 22,
+    headerDateFormat: "dddd d/MM",
+    durationBarVisible: false,
+    onEventClick: (args) => {
+      const eventId = args.e.id();
+      const url = `/class/${eventId}`;
+      window.location.href = url;
+    },
+  });
 
-  const classSchedule = [
-    {
-      id: 1,
-      title: 'Pilates',
-      start: new Date(2023, 6, 16, 14, 0), // Start date and time for the class
-      end: new Date(2023, 6, 16, 15, 0),   // End date and time for the class (1 hour after start time)
-      trainer: 'Priya Charasu',
-      description: 'Pilates is a low-impact workout that focuses on improving flexibility, strength, and overall body awareness...',
-    },
-    {
-      id: 2,
-      title: 'Yoga',
-      start: new Date(2023, 6, 17, 10, 30),
-      end: new Date(2023, 6, 17, 12, 0),
-      trainer: 'Samantha Johnson',
-      description: 'Yoga is a practice that combines physical postures, breathing exercises, and meditation...',
-    },
-    // Add more events as needed
-  ];
+  // eslint-disable-next-line
+  const [startDate, setStartDate] = useState(new Date(Date.now()));
+
+  useEffect(() => {
+    const events = [
+      {
+        id: 1,
+        text: "Yoga",
+        start: "2023-08-02T12:00:00",
+        end: "2023-08-02T13:00:00",
+      },
+      {
+        id: 2,
+        text: "Pilates",
+        start: "2023-08-02T13:00:00",
+        end: "2023-08-02T14:00:00",
+      },
+      {
+        id: 3,
+        text: "Boxing",
+        start: "2023-08-05T09:00:00",
+        end: "2023-08-05T10:00:00",
+      },
+      {
+        id: 4,
+        text: "Hit Fit",
+        start: "2023-08-04T13:00:00",
+        end: "2023-08-04T14:00:00",
+      },
+      {
+        id: 5,
+        text: "Strength Training",
+        start: "2023-08-01T13:00:00",
+        end: "2023-08-01T14:00:00",
+      },
+    ];
+
+    calendarRef.current.control.update({ startDate, events });
+  }, [startDate]);
 
   return (
-    <div>
-      <Calendar
-        localizer={localizer}
-        events={classSchedule}
-        views={['week']} // Show only weekly view
-        startAccessor="start" // Property name for the start date of the event
-        endAccessor="end" // Property name for the end date of the event
-        titleAccessor="title" // Property name for the title of the event
-        onSelectEvent={(event) => {
-          // Handle event selection (e.g., open a details page)
-          console.log(event);
-        }}
-        style={{ height: 600 }} // Set the height of the calendar component
-      />
-    </div>
+    <>
+      <Helmet>
+        <title>Join a class - Roids Fitness Gym</title>
+      </Helmet>
+      <div className="word-container">
+        <h1 className="title">Class Timetable</h1>
+        <p>Select on the class the class you are interested in to sign up!</p>
+      </div>
+      <div className="calendar-container">
+        <div>
+          <DayPilotCalendar {...calendarConfig} ref={calendarRef} />
+        </div>
+        <div>
+          <DayPilotNavigator
+            selectMode={"Week"}
+            showMonths={1}
+            skipMonths={1}
+            startDate={startDate}
+            selectionDay={startDate}
+            onTimeRangeSelected={(args) => {
+              calendarRef.current.control.update({
+                startDate: args.day,
+              });
+            }}
+          />
+        </div>
+      </div>
+      <div className="word-container">
+        <h1 className="title">What to bring to class</h1>
+        <ul>
+          <li>Water bottle</li>
+          <li>Towel</li>
+          <li>Comfortable clothing</li>
+        </ul>
+      </div>
+    </>
   );
 }
 
