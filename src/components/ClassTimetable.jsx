@@ -8,9 +8,13 @@ import { Link } from "react-router-dom";
 
 function ClassTimetable() {
   const calendarRef = useRef();
+
   // eslint-disable-next-line
   const [calendarConfig, setCalendarConfig] = useState({
     viewType: "Week",
+    businessBeginsHour: 7,
+    businessEndsHour: 22,
+    headerDateFormat: "dddd d/MM",
     durationBarVisible: false,
     onEventClick: async (args) => {
       const eventId = args.e.id();
@@ -20,6 +24,9 @@ function ClassTimetable() {
       window.location.href = url;
     },
   });
+
+  // eslint-disable-next-line
+  const [startDate, setStartDate] = useState(new Date(Date.now()));
 
   useEffect(() => {
     const events = [
@@ -55,32 +62,45 @@ function ClassTimetable() {
       },
     ];
 
-    var startDate = new Date(Date.now());
-
     calendarRef.current.control.update({ startDate, events });
-  }, []);
+  }, [startDate]);
 
   return (
-    <div className="calendar-container">
-      <div>
-        <DayPilotNavigator
-          selectMode={"Week"}
-          showMonths={1}
-          skipMonths={1}
-          startDate={"2023-10-02"}
-          selectionDay={"2023-10-02"}
-          onTimeRangeSelected={(args) => {
-            calendarRef.current.control.update({
-              startDate: args.day,
-            });
-          }}
-        />
+    <>
+      <div className="word-container">
+        <h1 className="title">Class Timetable</h1>
+        <p>Select on the class the class you are interested in to sign up!</p>
       </div>
-      <div>
-        <Link to="/class/:id">
-        <DayPilotCalendar {...calendarConfig} ref={calendarRef} /></Link>
+      <div className="calendar-container">
+        <div>
+          <Link to="/class/:id">
+            <DayPilotCalendar {...calendarConfig} ref={calendarRef} />
+          </Link>
+        </div>
+        <div>
+          <DayPilotNavigator
+            selectMode={"Week"}
+            showMonths={1}
+            skipMonths={1}
+            startDate={startDate}
+            selectionDay={startDate}
+            onTimeRangeSelected={ args => {
+              calendarRef.current.control.update({
+                startDate: args.day
+              });
+            }}
+          />
+        </div>
       </div>
-    </div>
+      <div className="word-container">
+        <h1 className="title">What to bring to class</h1>
+        <ul>
+          <li>Water bottle</li>
+          <li>Towel</li>
+          <li>Comfortable clothing</li>
+        </ul>
+      </div>
+    </>
   );
 }
 

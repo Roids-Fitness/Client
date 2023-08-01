@@ -160,10 +160,10 @@ body {
   background-position: center;
 }
 
+/* ClassTimetable CSS */
 .calendar-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 20px;
   display: flex;
 }
 

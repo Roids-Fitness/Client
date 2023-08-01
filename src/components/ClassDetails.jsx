@@ -48,7 +48,7 @@ function ClassDetails() {
       end: "2023-08-01T14:00:00",
     },
   ];
-  
+
   const { id } = useParams();
   const event = events.find((event) => event.id === parseInt(id));
 
