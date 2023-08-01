@@ -4,7 +4,7 @@ import {
   DayPilotCalendar,
   DayPilotNavigator,
 } from "@daypilot/daypilot-lite-react";
-import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 function ClassTimetable() {
   const calendarRef = useRef();
@@ -16,11 +16,9 @@ function ClassTimetable() {
     businessEndsHour: 22,
     headerDateFormat: "dddd d/MM",
     durationBarVisible: false,
-    onEventClick: async (args) => {
+    onEventClick: (args) => {
       const eventId = args.e.id();
-
       const url = `/class/${eventId}`;
-
       window.location.href = url;
     },
   });
@@ -67,15 +65,16 @@ function ClassTimetable() {
 
   return (
     <>
+      <Helmet>
+        <title>Join a class - Roids Fitness Gym</title>
+      </Helmet>
       <div className="word-container">
         <h1 className="title">Class Timetable</h1>
         <p>Select on the class the class you are interested in to sign up!</p>
       </div>
       <div className="calendar-container">
         <div>
-          <Link to="/class/:id">
-            <DayPilotCalendar {...calendarConfig} ref={calendarRef} />
-          </Link>
+          <DayPilotCalendar {...calendarConfig} ref={calendarRef} />
         </div>
         <div>
           <DayPilotNavigator
@@ -84,9 +83,9 @@ function ClassTimetable() {
             skipMonths={1}
             startDate={startDate}
             selectionDay={startDate}
-            onTimeRangeSelected={ args => {
+            onTimeRangeSelected={(args) => {
               calendarRef.current.control.update({
-                startDate: args.day
+                startDate: args.day,
               });
             }}
           />

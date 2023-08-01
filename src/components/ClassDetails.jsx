@@ -1,11 +1,11 @@
 import React from "react";
 import "./components.css";
+import { Helmet } from "react-helmet";
 import { Image, Button } from "react-bootstrap";
 import image1 from "../resources/class-details-image1.jpeg";
 import { useParams } from "react-router-dom";
 
 function ClassDetails() {
-  
   const events = [
     {
       id: 1,
@@ -80,6 +80,9 @@ function ClassDetails() {
 
   return (
     <>
+      <Helmet>
+        <title>{event.title} - Roids Fitness Gym</title>
+      </Helmet>
       <div className="image-container">
         <Image src={image1} alt="gym trainer" className="custom-image" />
       </div>
