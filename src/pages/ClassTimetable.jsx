@@ -4,9 +4,15 @@ import {
   DayPilotNavigator,
 } from "@daypilot/daypilot-lite-react";
 import { Helmet } from "react-helmet";
+import { Link } from "react-router-dom";
 
 function ClassTimetable() {
   const calendarRef = useRef();
+  const [eventId, setEventId] = useState("");
+
+  const handleEventClick = (args) => {
+    setEventId(`/${args.e.id()}`);
+  };
 
   // eslint-disable-next-line
   const [calendarConfig, setCalendarConfig] = useState({
@@ -15,11 +21,7 @@ function ClassTimetable() {
     businessEndsHour: 22,
     headerDateFormat: "dddd d/MM",
     durationBarVisible: false,
-    onEventClick: (args) => {
-      const eventId = args.e.id();
-      const url = `/class/${eventId}`;
-      window.location.href = url;
-    },
+    onEventClick: handleEventClick,
   });
 
   // eslint-disable-next-line
@@ -73,7 +75,9 @@ function ClassTimetable() {
       </div>
       <div className="calendar-container">
         <div>
-          <DayPilotCalendar {...calendarConfig} ref={calendarRef} />
+          <Link to={`/class${eventId}`}>
+            <DayPilotCalendar {...calendarConfig} ref={calendarRef} />
+          </Link>
         </div>
         <div>
           <DayPilotNavigator
