@@ -20,15 +20,15 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/class-timetable",
+        path: "/class",
         element: <ClassTimetable />,
       },
       {
-        path: "/register",
+        path: "/user/register",
         element: <Register />,
       },
       {
-        path: "/login",
+        path: "/user/login",
         element: <Login />,
       },
       {
