@@ -1,10 +1,9 @@
 import React from "react";
-import "./components.css";
 import Carousel from "react-bootstrap/Carousel";
-import CarouselContent from "./CarouselContent";
-import image1 from "../resources/home-image1.jpeg";
-import image2 from "../resources/home-image2.jpeg";
-import image3 from "../resources/home-image3.jpeg";
+import CarouselContent from "../components/CarouselContent";
+import image1 from "../resources/images/home-image1.jpeg";
+import image2 from "../resources/images/home-image2.jpeg";
+import image3 from "../resources/images/home-image3.jpeg";
 import { Helmet } from "react-helmet";
 
 function Home() {

@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import "./components.css";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { Outlet, Link } from "react-router-dom/dist";
-import { ReactComponent as Logo } from "../resources/logo.svg";
+import { ReactComponent as Logo } from "../logo.svg";
 
 export default class NavbarComponent extends Component {
   render() {
@@ -25,15 +24,15 @@ export default class NavbarComponent extends Component {
                   <Link to={"/"} className="white-text-no-hyperlink">Home</Link>
                 </Nav.Link>
                 <Nav.Link>
-                  <Link to={"/class-timetable"} className="white-text-no-hyperlink">Classes</Link>
+                  <Link to={"/class"} className="white-text-no-hyperlink">Classes</Link>
                 </Nav.Link>
               </Nav>
               <Nav className="ml-auto">
                 <Nav.Link>
-                  <Link to={"/register"} className="white-text-no-hyperlink">Register</Link>
+                  <Link to={"/user/register"} className="white-text-no-hyperlink">Register</Link>
                 </Nav.Link>
                 <Nav.Link>
-                  <Link to={"/login"} className="white-text-no-hyperlink">Login</Link>
+                  <Link to={"/user/login"} className="white-text-no-hyperlink">Login</Link>
                 </Nav.Link>
               </Nav>
             </Navbar.Collapse>

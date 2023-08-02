@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import "./components.css";
 import { Form, Row, Col, InputGroup, Button} from 'react-bootstrap';
 import { Helmet } from "react-helmet";
 

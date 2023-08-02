@@ -1,8 +1,7 @@
 import React from "react";
-import "./components.css";
 import { Helmet } from "react-helmet";
 import { Image, Button } from "react-bootstrap";
-import image1 from "../resources/class-details-image1.jpeg";
+import image1 from "../resources/images/class-details-image1.jpeg";
 import { useParams } from "react-router-dom";
 
 function ClassDetails() {
