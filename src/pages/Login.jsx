@@ -1,11 +1,23 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Form, Row, Col, InputGroup, Button, Alert } from "react-bootstrap";
+import { Form, Row, Col, InputGroup, Button } from "react-bootstrap";
 import { Helmet } from "react-helmet";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function Login() {
   const [validated, setValidated] = useState(false);
-  const [error, setError] = useState(null);
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const navigate = useNavigate();
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -13,28 +25,32 @@ function Login() {
     if (form.checkValidity() === false) {
       event.stopPropagation();
     } else {
-      // Simulate API call to validate credentials (replace this with your actual backend API call)
-      const email = form.elements.email.value;
-      const password = form.elements.password.value;
-      const isValidCredentials = await validateCredentials(email, password);
-
-      if (isValidCredentials) {
-        // Login successful, redirect to dashboard or home page
-        // Replace '/dashboard' with the appropriate URL
-        window.location.href = "/dashboard";
-      } else {
-        setError("Invalid email or password. Please try again.");
-        setValidated(true);
+      const email = formData.email;
+      const password = formData.password;
+      try {
+        const response = await validateCredentials(email, password);
+        localStorage.setItem("token", response.token);
+        alert("Login successful!");
+        navigate("/class");
+      } catch (error) {
+        if (error.response && error.response.status === 401) {
+          alert("Invalid credentials. Please try again.");
+        } else {
+          console.error("Error while logging in:", error);
+          alert(`An error occurred while logging in.${error}`);
+        }
       }
     }
+
+    setValidated(true);
   };
 
   const validateCredentials = async (email, password) => {
-    // Perform API call to validate the email and password against the database
-    // Return true if the credentials are valid, false otherwise
-    // Replace this with your actual backend validation logic
-    // For now, let's assume the credentials are valid if the email is 'test@example.com' and the password is 'Test1234'
-    return email === "test@example.com" && password === "Test1234";
+    const response = await axios.post("http://localhost:3001/user/login", {
+      email,
+      password,
+    });
+    return response.data;
   };
 
   return (
@@ -47,11 +63,6 @@ function Login() {
           <div className="form-container">
             <div className="title">Login</div>
             <Form noValidate validated={validated} onSubmit={handleSubmit}>
-              {error && (
-                <Alert variant="danger" className="mb-3">
-                  {error}
-                </Alert>
-              )}
               <Row className="mb-3">
                 <Form.Group as={Col} md="12" controlId="emailValidation">
                   <Form.Label>Email</Form.Label>
@@ -62,6 +73,8 @@ function Login() {
                       placeholder="Email"
                       required
                       autoComplete="username"
+                      onChange={handleChange}
+                      value={formData.email}
                     />
                     <Form.Control.Feedback type="invalid">
                       Please provide a valid email address (e.g.,
@@ -80,6 +93,8 @@ function Login() {
                       placeholder="Password"
                       required
                       autoComplete="current-password"
+                      onChange={handleChange}
+                      value={formData.password}
                     />
                     <Form.Control.Feedback type="invalid">
                       Please provide a password.
