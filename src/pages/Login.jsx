@@ -89,7 +89,7 @@ function Login() {
               </Row>
               <Row>
                 <Col md="12">
-                  <Link className="register-link" to="/register">
+                  <Link className="register-link" to="/user/register">
                     Not a member? Register here
                   </Link>
                 </Col>

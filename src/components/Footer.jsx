@@ -1,7 +1,5 @@
 import React from "react";
 import { Card, CardGroup } from "react-bootstrap";
-import "./components.css";
-
 function Footer() {
   return (
     <div className="footer-container">

@@ -1,14 +1,15 @@
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
 import {
   RouterProvider,
   createBrowserRouter,
 } from "react-router-dom/dist";
 import NavbarComponent from "./components/Navbar";
-import Home from "./components/Home";
-import ClassTimetable from "./components/ClassTimetable";
-import Register from "./components/Register";
-import Login from "./components/Login";
-import ClassDetails from "./components/ClassDetails";
+import Home from "./pages/Home";
+import ClassTimetable from "./pages/ClassTimetable";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
+import ClassDetails from "./pages/ClassDetails";
 import Footer from "./components/Footer";
 
 const router = createBrowserRouter([
@@ -20,15 +21,15 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/class-timetable",
+        path: "/class",
         element: <ClassTimetable />,
       },
       {
-        path: "/register",
+        path: "/user/register",
         element: <Register />,
       },
       {
-        path: "/login",
+        path: "/user/login",
         element: <Login />,
       },
       {
