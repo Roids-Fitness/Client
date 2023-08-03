@@ -1,17 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   DayPilotCalendar,
   DayPilotNavigator,
 } from "@daypilot/daypilot-lite-react";
 import { Helmet } from "react-helmet";
-import { Link } from "react-router-dom";
 
 function ClassTimetable() {
   const calendarRef = useRef();
-  const [eventId, setEventId] = useState("");
+  const navigate = useNavigate();
 
   const handleEventClick = (args) => {
-    setEventId(`/${args.e.id()}`);
+    navigate(`/class/${args.e.id()}`);
   };
 
   // eslint-disable-next-line
@@ -75,9 +75,7 @@ function ClassTimetable() {
       </div>
       <div className="calendar-container">
         <div>
-          <Link to={`/class${eventId}`}>
-            <DayPilotCalendar {...calendarConfig} ref={calendarRef} />
-          </Link>
+          <DayPilotCalendar {...calendarConfig} ref={calendarRef} />
         </div>
         <div>
           <DayPilotNavigator
