@@ -3,8 +3,12 @@ import { Helmet } from "react-helmet";
 import { Image, Button } from "react-bootstrap";
 import image1 from "../resources/images/class-details-image1.jpeg";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function ClassDetails() {
+  const navigate = useNavigate();
+
   const events = [
     {
       id: 1,
@@ -48,6 +52,31 @@ function ClassDetails() {
     },
   ];
 
+  const handleSignUp = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      console.log(token);
+      if (token) {
+        const response = await axios.put(
+          "http://localhost:3001/class/64cb336b5c5b696653674a09",
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        alert("Signup successful!" + response.data);
+        navigate("/class");
+      } else {
+        alert("Please login to signup!");
+        navigate("/login");
+      }
+    } catch (error) {
+      console.error("Error signing up:", error);
+      // Handle the error if needed
+    }
+  };
   const { id } = useParams();
   const event = events.find((event) => event.id === parseInt(id));
 
@@ -94,7 +123,7 @@ function ClassDetails() {
         </p>
         <p>Trainer: {event.trainer}</p>
         <div className="d-flex justify-content-center">
-          <Button className="button" type="submit">
+          <Button className="button" type="submit" onClick={handleSignUp}>
             Sign up
           </Button>
         </div>
