@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Form, Row, Col, InputGroup, Button } from "react-bootstrap";
 import { Helmet } from "react-helmet";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
   const [validated, setValidated] = useState(false);
@@ -19,7 +19,7 @@ function Register() {
     isAdmin: false,
     savedClasses: [],
   });
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -35,9 +35,9 @@ function Register() {
     } else {
       try {
         // Make a POST request to your backend API to create a new user
-        await axios.post("YOUR_BACKEND_API_URL", formData);
+        await axios.post("http://localhost:3001/user/register", formData);
         alert("Registration successful!");
-        history.push("/user/login");
+        navigate("/user/login");
       } catch (error) {
         console.error("Error creating user:", error);
         alert("Registration failed. Please try again later.");
