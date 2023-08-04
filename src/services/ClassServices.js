@@ -1,10 +1,17 @@
+import axios from 'axios';
+
 // Fetching class data from the api
 export const fetchClasses = async (apiURL) => {
-  const response = await fetch(`${apiURL}/class`);
-  const data = await response.json();
-  console.log(data);
-  return data;
+  try {
+    const response = await axios.get(`${apiURL}/class`);
+    const data = response.data;
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.error('Error fetching classes:', error);
+  }
 };
+
 
 // data conversion model for the class data for the calendar
 export const convertClassData = (data) => {

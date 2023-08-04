@@ -9,8 +9,7 @@ import { fetchClasses, convertClassData } from "../services/ClassServices";
 
 function ClassTimetable() {
   const calendarRef = useRef();
-  const navigate = useNavigate();
-  
+  const navigate = useNavigate();  
 
   const handleEventClick = (args) => {
     navigate(`/class/${args.e.id()}`);
