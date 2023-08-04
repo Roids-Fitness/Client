@@ -5,10 +5,12 @@ import {
   DayPilotNavigator,
 } from "@daypilot/daypilot-lite-react";
 import { Helmet } from "react-helmet";
+import { fetchClasses, convertClassData } from "../services/ClassServices";
 
 function ClassTimetable() {
   const calendarRef = useRef();
   const navigate = useNavigate();
+  
 
   const handleEventClick = (args) => {
     navigate(`/class/${args.e.id()}`);
@@ -28,40 +30,15 @@ function ClassTimetable() {
   const [startDate, setStartDate] = useState(new Date(Date.now()));
 
   useEffect(() => {
-    const events = [
-      {
-        id: 1,
-        text: "Yoga",
-        start: "2023-08-02T12:00:00",
-        end: "2023-08-02T13:00:00",
-      },
-      {
-        id: 2,
-        text: "Pilates",
-        start: "2023-08-02T13:00:00",
-        end: "2023-08-02T14:00:00",
-      },
-      {
-        id: 3,
-        text: "Boxing",
-        start: "2023-08-05T09:00:00",
-        end: "2023-08-05T10:00:00",
-      },
-      {
-        id: 4,
-        text: "Hit Fit",
-        start: "2023-08-04T13:00:00",
-        end: "2023-08-04T14:00:00",
-      },
-      {
-        id: 5,
-        text: "Strength Training",
-        start: "2023-08-01T13:00:00",
-        end: "2023-08-01T14:00:00",
-      },
-    ];
-
-    calendarRef.current.control.update({ startDate, events });
+    const apiURL = process.env.REACT_APP_API_URL;
+    try {
+      fetchClasses(apiURL).then((data) => {
+        const events = convertClassData(data);
+        calendarRef.current.control.update({ startDate, events });
+      });
+    } catch (error) {
+      console.log(error);
+    }
   }, [startDate]);
 
   return (
@@ -105,3 +82,5 @@ function ClassTimetable() {
 }
 
 export default ClassTimetable;
+
+

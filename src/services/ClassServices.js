@@ -2,6 +2,7 @@
 export const fetchClasses = async (apiURL) => {
   const response = await fetch(`${apiURL}/class`);
   const data = await response.json();
+  console.log(data);
   return data;
 };
 
