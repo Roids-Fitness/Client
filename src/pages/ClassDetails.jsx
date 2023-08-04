@@ -58,7 +58,7 @@ function ClassDetails() {
       console.log(token);
       if (token) {
         const response = await axios.put(
-          "http://localhost:3001/class/64cb336b5c5b696653674a09",
+          "http://localhost:3001/class/64cb336b5c5b696653674a09", //change to id of class
           {},
           {
             headers: {

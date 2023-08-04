@@ -30,6 +30,7 @@ function Login() {
       try {
         const response = await validateCredentials(email, password);
         localStorage.setItem("token", response.token);
+        localStorage.setItem("user", JSON.stringify(response.user));
         alert("Login successful!");
         navigate("/class");
       } catch (error) {
