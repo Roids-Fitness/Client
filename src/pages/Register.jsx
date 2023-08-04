@@ -20,6 +20,7 @@ function Register() {
     savedClasses: [],
   });
   const navigate = useNavigate();
+  const apiURL = process.env.REACT_APP_API_URL;
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -35,7 +36,7 @@ function Register() {
     } else {
       try {
         // Make a POST request to your backend API to create a new user
-        await axios.post("http://localhost:3001/user/register", formData);
+        await axios.post(`${apiURL}/user/register`, formData);
         alert("Registration successful!");
         navigate("/user/login");
       } catch (error) {
