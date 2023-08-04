@@ -13,6 +13,7 @@ function Login() {
   });
 
   const navigate = useNavigate();
+  const apiURL = process.env.REACT_APP_API_URL;
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -30,6 +31,7 @@ function Login() {
       try {
         const response = await validateCredentials(email, password);
         localStorage.setItem("token", response.token);
+        localStorage.setItem("user", JSON.stringify(response.user));
         alert("Login successful!");
         navigate("/class");
       } catch (error) {
@@ -46,7 +48,7 @@ function Login() {
   };
 
   const validateCredentials = async (email, password) => {
-    const response = await axios.post("http://localhost:3001/user/login", {
+    const response = await axios.post(`${apiURL}/user/login`, {
       email,
       password,
     });
