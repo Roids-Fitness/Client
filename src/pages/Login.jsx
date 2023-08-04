@@ -13,6 +13,7 @@ function Login() {
   });
 
   const navigate = useNavigate();
+  const apiURL = process.env.REACT_APP_API_URL;
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -47,7 +48,7 @@ function Login() {
   };
 
   const validateCredentials = async (email, password) => {
-    const response = await axios.post("http://localhost:3001/user/login", {
+    const response = await axios.post(`${apiURL}/user/login`, {
       email,
       password,
     });

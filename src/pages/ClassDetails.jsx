@@ -8,6 +8,7 @@ import axios from "axios";
 
 function ClassDetails() {
   const navigate = useNavigate();
+  const apiURL = process.env.REACT_APP_API_URL;
 
   const events = [
     {
@@ -58,7 +59,7 @@ function ClassDetails() {
       console.log(token);
       if (token) {
         const response = await axios.put(
-          "http://localhost:3001/class/64cb336b5c5b696653674a09", //change to id of class
+          `${apiURL}/class/64cb336b5c5b696653674a09`, //change to id of class
           {},
           {
             headers: {
