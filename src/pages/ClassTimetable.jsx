@@ -9,36 +9,42 @@ import { fetchClasses, convertClassData } from "../services/ClassServices";
 
 function ClassTimetable() {
   const calendarRef = useRef();
-  const navigate = useNavigate();  
+  const navigate = useNavigate();
+  const [viewType, setViewType] = useState("Week");
 
   const handleEventClick = (args) => {
     navigate(`/class/${args.e.id()}`);
   };
-
-  // eslint-disable-next-line
-  const [calendarConfig, setCalendarConfig] = useState({
-    viewType: "Week",
-    businessBeginsHour: 7,
-    businessEndsHour: 22,
-    headerDateFormat: "dddd d/MM",
-    durationBarVisible: false,
-    onEventClick: handleEventClick,
-  });
-
-  // eslint-disable-next-line
-  const [startDate, setStartDate] = useState(new Date(Date.now()));
 
   useEffect(() => {
     const apiURL = process.env.REACT_APP_API_URL;
     try {
       fetchClasses(apiURL).then((data) => {
         const events = convertClassData(data);
-        calendarRef.current.control.update({ startDate, events });
+        calendarRef.current.control.update({ events });
       });
     } catch (error) {
       console.log(error);
     }
-  }, [startDate]);
+  }, []);
+
+  useEffect(() => {
+    const handleWindowResize = () => {
+      if (window.innerWidth <= 768) {
+        setViewType("Day");
+      } else {
+        setViewType("Week");
+      }
+    };
+
+    handleWindowResize(); // Initial check
+
+    window.addEventListener("resize", handleWindowResize);
+
+    return () => {
+      window.removeEventListener("resize", handleWindowResize);
+    };
+  }, []);
 
   return (
     <>
@@ -51,15 +57,23 @@ function ClassTimetable() {
       </div>
       <div className="calendar-container">
         <div>
-          <DayPilotCalendar {...calendarConfig} ref={calendarRef} />
+          <DayPilotCalendar
+            viewType={viewType}
+            businessBeginsHour={7}
+            businessEndsHour={22}
+            headerDateFormat="dddd d/MM"
+            durationBarVisible={false}
+            onEventClick={handleEventClick}
+            ref={calendarRef}
+          />
         </div>
         <div>
           <DayPilotNavigator
             selectMode={"Week"}
             showMonths={1}
             skipMonths={1}
-            startDate={startDate}
-            selectionDay={startDate}
+            startDate={new Date(Date.now())}
+            selectionDay={new Date(Date.now())}
             onTimeRangeSelected={(args) => {
               calendarRef.current.control.update({
                 startDate: args.day,
@@ -81,5 +95,3 @@ function ClassTimetable() {
 }
 
 export default ClassTimetable;
-
-
