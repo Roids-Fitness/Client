@@ -1,5 +1,9 @@
 import React from 'react';
 
+/** This is a component that will be used in the Carousel component in Home.jsx as it is repeated thrice.
+ * 
+ * @returns CarouselContent component
+ */
 const CarouselContent = () => {
   return (
     <>

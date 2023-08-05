@@ -8,6 +8,10 @@ import { Helmet } from "react-helmet";
 import { convertClassData } from "../services/ClassServices";
 import axios from "axios";
 
+/**
+ * The class timetable page that displays all classes in a weekly basic.
+ * @returns ClassTimetable component
+ */
 function ClassTimetable() {
   const calendarRef = useRef();
   const [classesData, setClassesData] = useState(null);
@@ -15,7 +19,11 @@ function ClassTimetable() {
   const [viewType, setViewType] = useState("Week");
   const [numberOfClass, setNumberOfClass] = useState(0);
 
+  /**
+   * useEffect hook to get class data from the API
+   */
   useEffect(() => {
+    /** Function to fetch class data for the specified id */
     const getClasses = async () => {
       try {
         const apiURL = process.env.REACT_APP_API_URL;
@@ -42,7 +50,13 @@ function ClassTimetable() {
     getClasses();
   }, []);
 
+  /**
+   * useEffect hook to set the calendar view type based on the window width
+   */
   useEffect(() => {
+    /**
+     * Function to set the calendar view type based on the window width
+     */
     const handleWindowResize = () => {
       if (window.innerWidth <= 768) {
         setViewType("Day");
@@ -60,6 +74,9 @@ function ClassTimetable() {
     };
   }, []);
 
+  /**
+   * useEffect hook to update the calendar events when classesData changes
+   */
   useEffect(() => {
     if (classesData && calendarRef.current) {
       calendarRef.current.control.update({ events: classesData });
@@ -71,6 +88,9 @@ function ClassTimetable() {
       const endOfWeek = new Date(today);
       endOfWeek.setDate(endOfWeek.getDate() + (6 - today.getDay())); // Set to Saturday of this week
 
+      /**
+       * Filter the classesData to get the classes that are in the current week
+       */
       const classesThisWeek = classesData.filter(
         (event) =>
           event.backColor === "#FE3434" &&
@@ -81,6 +101,10 @@ function ClassTimetable() {
     }
   }, [classesData]);
 
+  /**
+   * handles the event click on the calendar
+   * @param {*} args 
+   */
   const handleEventClick = (args) => {
     navigate(`/class/${args.e.id()}`);
   };
@@ -92,6 +116,7 @@ function ClassTimetable() {
       </Helmet>
       <div className="word-container">
         <h1 className="title">Class Timetable</h1>
+        {/* If user is logged in, show the number of classes they have this week */}
         {localStorage.getItem("user") && localStorage.getItem("token") && (
           <p>You have {numberOfClass} class(es) this week (shown in red).</p>
         )}
@@ -99,6 +124,7 @@ function ClassTimetable() {
       </div>
       <div className="calendar-container">
         <div>
+          {/* Calendar component */}
           <DayPilotCalendar
             viewType={viewType}
             businessBeginsHour={7}
@@ -110,6 +136,7 @@ function ClassTimetable() {
           />
         </div>
         <div>
+          {/* Calendar navigation component */}
           <DayPilotNavigator
             selectMode={"Week"}
             showMonths={1}

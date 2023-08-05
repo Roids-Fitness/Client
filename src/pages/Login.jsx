@@ -5,20 +5,31 @@ import { Helmet } from "react-helmet";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
+/**
+ * This is the login page for the website, it allows users to login to their account.
+ * @returns login component
+ */
 function Login() {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-
   const navigate = useNavigate();
   const apiURL = process.env.REACT_APP_API_URL;
 
+  /**
+   * Function that handles the change of the form data
+   * @param {*} event 
+   */
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
   };
 
+  /**
+   * Function that handles the submission of the form data, and logs the user in
+   * @param {*} event 
+   */
   const handleSubmit = async (event) => {
     event.preventDefault();
     const email = formData.email;
@@ -40,6 +51,12 @@ function Login() {
     }
   };
 
+  /**
+   * Function that validates the user's credentials
+   * @param {*} email 
+   * @param {*} password 
+   * @returns token and user data which is to be stored in local storage
+   */
   const validateCredentials = async (email, password) => {
     const response = await axios.post(`${apiURL}/user/login`, {
       email,
@@ -56,6 +73,7 @@ function Login() {
       <div className="background-container" id="login-background-container">
         <div className="container">
           <div className="form-container">
+            {/** If the user is logged in, display a message, otherwise display the login form */}
             {!localStorage.getItem("token") || !localStorage.getItem("user") ? (
               <div>
                 <div className="title">Login</div>

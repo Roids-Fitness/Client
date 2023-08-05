@@ -1,5 +1,10 @@
 import React from "react";
 import { Card, CardGroup } from "react-bootstrap";
+
+/** The footer component that is displayed at the bottom of every page. Contains information about the gym, including opening hours, contact details and location.
+ * 
+ * @returns footer component
+ */
 function Footer() {
   return (
     <div className="footer-container">

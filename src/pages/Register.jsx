@@ -4,6 +4,10 @@ import { Helmet } from "react-helmet";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+/**
+ * This is the registration page for the website, it allows users to register for an account.
+ * @returns Register component
+ */
 function Register() {
   const [validated, setValidated] = useState(false);
   const [formData, setFormData] = useState({
@@ -22,11 +26,19 @@ function Register() {
   const navigate = useNavigate();
   const apiURL = process.env.REACT_APP_API_URL;
 
+  /**
+   * This function handles the change of the form data
+   * @param {*} event 
+   */
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
   };
 
+  /**
+   * This function handles the submission of the form data, and registers the user
+   * @param {*} event 
+   */
   const handleSubmit = async (event) => {
     event.preventDefault();
     const form = event.currentTarget;
@@ -57,6 +69,7 @@ function Register() {
       <div className="background-container">
         <div className="container">
           <div className="form-container">
+            {/** If the user is logged in, display a message, otherwise display the register form */}
             {!localStorage.getItem("token") || !localStorage.getItem("user") ? (
               <div>
                 <div className="title">Registration Form</div>

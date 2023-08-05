@@ -1,4 +1,8 @@
-// data conversion model for the class data for the calendar
+/**
+ * Function to convert the class data to the calendar data usable for DayPilot
+ * @param {*} data 
+ * @returns convertedData
+ */
 export const convertClassData = (data) => {
     const convertedData = data.map((item) => {
         const { _id, title, description, startTime, endTime, trainer, participantList } = item;

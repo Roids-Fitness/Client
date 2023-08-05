@@ -12,6 +12,9 @@ import Login from "./pages/Login";
 import ClassDetails from "./pages/ClassDetails";
 import Footer from "./components/Footer";
 
+/**
+ * @description Create a router for the application
+ */
 const router = createBrowserRouter([
   {
     element: <NavbarComponent />,
@@ -40,6 +43,9 @@ const router = createBrowserRouter([
   },
 ]);
 
+/** 
+ * @description Render the application
+ */
 function App() {
   return (
     <div>

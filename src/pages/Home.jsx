@@ -6,6 +6,10 @@ import image2 from "../resources/images/home-image2.jpeg";
 import image3 from "../resources/images/home-image3.jpeg";
 import { Helmet } from "react-helmet";
 
+/**
+ * This is the home page for the website, it displays a carousel with images and promotional text.
+ * @returns Home component
+ */
 function Home() {
   return (
     <>

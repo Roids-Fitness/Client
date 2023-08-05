@@ -3,10 +3,15 @@ import { Container, Nav, Navbar } from "react-bootstrap";
 import { Outlet, Link } from "react-router-dom";
 import { ReactComponent as Logo } from "../logo.svg";
 
+/** This Navbar component is on the top of every page.
+ * 
+ * @returns navbar component
+ */
 function NavbarComponent() {
   const [userFirstName, setUserFirstName] = useState(null);
   const [token, setToken] = useState(localStorage.getItem("token"));
 
+  // Function to get user's first name from localStorage
   useEffect(() => {
     const userLocalStorageData = localStorage.getItem("user");
     if (userLocalStorageData) {
@@ -16,11 +21,13 @@ function NavbarComponent() {
       setUserFirstName(null);
     }
   }, []);
-
+  
+  // Function to update token state when localStorage changes
   const handleTokenChange = () => {
     setToken(localStorage.getItem("token"));
   };
 
+  // Add event listener to listen for changes in localStorage
   useEffect(() => {
     window.addEventListener("storage", handleTokenChange);
 
@@ -29,6 +36,7 @@ function NavbarComponent() {
     };
   }, []); 
 
+  // Function to logout user, remove token and user from localStorage
   const logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
@@ -62,6 +70,7 @@ function NavbarComponent() {
               </Nav.Link>
             </Nav>
             <Nav className="ml-auto">
+              {/* Show user's first name and logout button if user is logged in */}
               {userFirstName && token ? (
                 <>
                   <Navbar.Text className="white-text-no-hyperlink">
@@ -75,6 +84,7 @@ function NavbarComponent() {
                 </>
               ) : (
                 <>
+                {/* Shows Register and Login Link otherwise*/}
                   <Nav.Link>
                     <Link
                       to={"/user/register"}
