@@ -203,7 +203,7 @@ function Register() {
                   <Form.Label>Mobile</Form.Label>
                   <InputGroup hasValidation>
                     <Form.Control
-                      type="number"
+                      type="text"
                       placeholder="Mobile"
                       pattern="^04\d{8}$"
                       required
