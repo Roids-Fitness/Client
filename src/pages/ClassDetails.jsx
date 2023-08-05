@@ -77,6 +77,13 @@ function ClassDetails() {
     return `${formattedStart} - ${formattedEnd}`;
   };
 
+  const isClassStartTimePassed = (startTime) => {
+    const currentTime = new Date();
+    const classStartTime = new Date(startTime);
+    classStartTime.setHours(classStartTime.getHours() - 10)
+    return currentTime > classStartTime;
+  };
+
   return (
     <>
       <Helmet>
@@ -99,9 +106,11 @@ function ClassDetails() {
           </p>
           <p>Trainer: {classData.trainer}</p>
           <div className="d-flex justify-content-center">
-            <Button className="button" type="submit" onClick={handleSignUp}>
-              Sign up
-            </Button>
+          {!isClassStartTimePassed(classData.startTime) && (
+              <Button className="button" type="submit" onClick={handleSignUp}>
+                Sign up
+              </Button>
+            )}
           </div>
         </div>
       ) : (
