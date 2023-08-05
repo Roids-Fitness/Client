@@ -1,15 +1,7 @@
-// Fetching class data from the api
-export const fetchClasses = async (apiURL) => {
-  const response = await fetch(`${apiURL}/class`);
-  const data = await response.json();
-  console.log(data);
-  return data;
-};
-
 // data conversion model for the class data for the calendar
 export const convertClassData = (data) => {
     const convertedData = data.map((item) => {
-        const { _id, title, description, startTime, endTime, trainer } = item;
+        const { _id, title, description, startTime, endTime, trainer, participantList } = item;
         return {
         id: _id,
         text: title,
@@ -17,6 +9,8 @@ export const convertClassData = (data) => {
         start: startTime,
         end: endTime,
         trainer,
+        backColor: '#E8EAED',
+        participantList
         };
     });
     return convertedData;

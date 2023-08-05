@@ -1,57 +1,35 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Helmet } from "react-helmet";
 import { Image, Button } from "react-bootstrap";
 import image1 from "../resources/images/class-details-image1.jpeg";
-import { useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function ClassDetails() {
+  const [classData, setClassData] = useState(null);
   const navigate = useNavigate();
   const apiURL = process.env.REACT_APP_API_URL;
+  const { id } = useParams();
 
-  const events = [
-    {
-      id: 1,
-      title: "Yoga",
-      description: "Yoga class for beginners",
-      trainer: "John Doe",
-      start: "2023-08-02T12:00:00",
-      end: "2023-08-02T13:00:00",
-    },
-    {
-      id: 2,
-      title: "Pilates",
-      description: "Pilates workout for core strength",
-      trainer: "Jane Smith",
-      start: "2023-08-02T13:00:00",
-      end: "2023-08-02T14:00:00",
-    },
-    {
-      id: 3,
-      title: "Boxing",
-      description: "Boxing training for all levels",
-      trainer: "Mike Johnson",
-      start: "2023-08-05T09:00:00",
-      end: "2023-08-05T10:00:00",
-    },
-    {
-      id: 4,
-      title: "Hit Fit",
-      description: "High-Intensity Training (HIT) session",
-      trainer: "Sarah Williams",
-      start: "2023-08-04T13:00:00",
-      end: "2023-08-04T14:00:00",
-    },
-    {
-      id: 5,
-      title: "Strength Training",
-      description: "Strength training with weights",
-      trainer: "Alex Davis",
-      start: "2023-08-01T13:00:00",
-      end: "2023-08-01T14:00:00",
-    },
-  ];
+  useEffect(() => {
+    // Function to fetch class data for the specified id
+    const getClassDetails = async (id) => {
+      try {
+        const apiURL = process.env.REACT_APP_API_URL;
+        const response = await axios.get(`${apiURL}/class/${id}`);
+        setClassData(response.data);
+      } catch (error) {
+        console.error(error);
+        setClassData(null);
+      }
+    };
+
+    if (id) {
+      getClassDetails(id);
+    } else {
+      console.error("Class ID not provided in the URL.");
+    }
+  }, [id]);
 
   const handleSignUp = async () => {
     try {
@@ -59,7 +37,7 @@ function ClassDetails() {
       console.log(token);
       if (token) {
         const response = await axios.put(
-          `${apiURL}/class/64cb336b5c5b696653674a09`, //change to id of class
+          `${apiURL}/class/${id}`,
           {},
           {
             headers: {
@@ -71,64 +49,73 @@ function ClassDetails() {
         navigate("/class");
       } else {
         alert("Please login to signup!");
-        navigate("/login");
+        navigate("/user/login");
       }
     } catch (error) {
       console.error("Error signing up:", error);
-      // Handle the error if needed
     }
   };
-  const { id } = useParams();
-  const event = events.find((event) => event.id === parseInt(id));
 
-  const formatDate = (date) => {
-    const options = {
-      weekday: "long",
-      day: "numeric",
-      month: "long",
-    };
-    return date.toLocaleDateString("en-US", options);
+  // Function to format date in "Thursday, August 3" format
+  const formatDate = (dateString) => {
+    const options = { weekday: "long", month: "long", day: "numeric" };
+    const date = new Date(dateString);
+    return date.toLocaleDateString(undefined, options);
   };
 
-  const formatTime = (date) => {
-    const options = {
-      hour: "numeric",
-      minute: "numeric",
-      hour12: true,
-    };
-    return date.toLocaleTimeString("en-US", options);
+  // Function to format time in "12:00PM" format
+  const formatTime = (timeString) => {
+    const options = { hour: "numeric", minute: "numeric", timeZone: "UTC" };
+    const time = new Date(timeString);
+    return time.toLocaleTimeString(undefined, options);
   };
 
-  const startTime = new Date(event.start);
-  const endTime = new Date(event.end);
+  // Function to format date and time range
+  const formatDateTimeRange = (startTime, endTime) => {
+    const formattedStart = `${formatDate(startTime)}, ${formatTime(startTime)}`;
+    const formattedEnd = `${formatTime(endTime)}`;
+    return `${formattedStart} - ${formattedEnd}`;
+  };
 
-  const formattedDate = formatDate(startTime);
-  const formattedTimeRange = `${formatTime(startTime)} - ${formatTime(
-    endTime
-  )}`;
+  const isClassStartTimePassed = (startTime) => {
+    const currentTime = new Date();
+    const classStartTime = new Date(startTime);
+    classStartTime.setHours(classStartTime.getHours() - 10)
+    return currentTime > classStartTime;
+  };
 
   return (
     <>
       <Helmet>
-        <title>{event.title} - Roids Fitness Gym</title>
+        <title>
+          {classData
+            ? `${classData.title} - Roids Fitness Gym`
+            : "Class Details"}
+        </title>
       </Helmet>
       <div className="image-container">
         <Image src={image1} alt="gym trainer" className="custom-image" />
       </div>
-      <div className="word-container">
-        <h1 className="title">{event.title}</h1>
-        <p>{event.description}</p>
-        <h1 className="title">Details</h1>
-        <p>
-          Time: {formattedDate}, {formattedTimeRange}
-        </p>
-        <p>Trainer: {event.trainer}</p>
-        <div className="d-flex justify-content-center">
-          <Button className="button" type="submit" onClick={handleSignUp}>
-            Sign up
-          </Button>
+      {classData ? (
+        <div className="word-container">
+          <h1 className="title">{classData.title}</h1>
+          <p>{classData.description}</p>
+          <h1 className="title">Details</h1>
+          <p>
+            Time: {formatDateTimeRange(classData.startTime, classData.endTime)}
+          </p>
+          <p>Trainer: {classData.trainer}</p>
+          <div className="d-flex justify-content-center">
+          {!isClassStartTimePassed(classData.startTime) && (
+              <Button className="button" type="submit" onClick={handleSignUp}>
+                Sign up
+              </Button>
+            )}
+          </div>
         </div>
-      </div>
+      ) : (
+        <div>Loading...</div>
+      )}
     </>
   );
 }
