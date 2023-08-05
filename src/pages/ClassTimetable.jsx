@@ -5,10 +5,12 @@ import {
   DayPilotNavigator,
 } from "@daypilot/daypilot-lite-react";
 import { Helmet } from "react-helmet";
-import { fetchClasses, convertClassData } from "../services/ClassServices";
+import { convertClassData } from "../services/ClassServices";
+import axios from "axios";
 
 function ClassTimetable() {
   const calendarRef = useRef();
+  const [classesData, setClassesData] = useState(null);
   const navigate = useNavigate();
   const [viewType, setViewType] = useState("Week");
 
@@ -17,15 +19,19 @@ function ClassTimetable() {
   };
 
   useEffect(() => {
-    const apiURL = process.env.REACT_APP_API_URL;
-    try {
-      fetchClasses(apiURL).then((data) => {
-        const events = convertClassData(data);
-        calendarRef.current.control.update({ events });
-      });
-    } catch (error) {
-      console.log(error);
-    }
+    const getClasses = async () => {
+      try {
+        const apiURL = process.env.REACT_APP_API_URL;
+        const response = await axios.get(`${apiURL}/class`);
+        const events = convertClassData(response.data);
+        setClassesData(events);
+      } catch (error) {
+        console.error(error);
+        setClassesData(null);
+      }
+    };
+
+    getClasses();
   }, []);
 
   useEffect(() => {
@@ -45,6 +51,12 @@ function ClassTimetable() {
       window.removeEventListener("resize", handleWindowResize);
     };
   }, []);
+
+  useEffect(() => {
+    if (classesData && calendarRef.current) {
+      calendarRef.current.control.update({ events: classesData });
+    }
+  }, [classesData]);
 
   return (
     <>
@@ -95,3 +107,8 @@ function ClassTimetable() {
 }
 
 export default ClassTimetable;
+
+// const colouredEvents = events.map((event) => ({
+//   ...event,
+//   backColor: event.participantList.find((id) => id === localStorage.getItem("user").id) ? "#FE3434" : "#E8EAED",
+// }));
