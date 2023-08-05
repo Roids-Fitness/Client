@@ -56,55 +56,64 @@ function Login() {
       <div className="background-container" id="login-background-container">
         <div className="container">
           <div className="form-container">
-            <div className="title">Login</div>
-            <Form onSubmit={handleSubmit}>
-              <Row className="mb-3">
-                <Form.Group as={Col} md="12" controlId="emailValidation">
-                  <Form.Label>Email</Form.Label>
-                  <InputGroup>
-                    <Form.Control
-                      type="email"
-                      name="email"
-                      placeholder="Email"
-                      required
-                      autoComplete="username"
-                      onChange={handleChange}
-                      value={formData.email}
-                    />
-                  </InputGroup>
-                </Form.Group>
-              </Row>
-              <Row className="mb-3">
-                <Form.Group as={Col} md="12" controlId="passwordValidation">
-                  <Form.Label>Password</Form.Label>
-                  <InputGroup>
-                    <Form.Control
-                      type="password"
-                      name="password"
-                      placeholder="Password"
-                      required
-                      autoComplete="current-password"
-                      onChange={handleChange}
-                      value={formData.password}
-                    />
-                  </InputGroup>
-                </Form.Group>
-              </Row>
-              <Row>
-                <Col md="12">
-                  <Link className="register-link" to="/user/register">
-                    Not a member? Register here
-                  </Link>
-                </Col>
-              </Row>
-              <Row>
-                <Col md="12" className="d-flex justify-content-center mt-3">
-                  <Button className="button" type="submit">
-                    Login
-                  </Button>
-                </Col>
-              </Row>
-            </Form>
+            {!localStorage.getItem("token") || !localStorage.getItem("user") ? (
+              <div>
+                <div className="title">Login</div>
+                <Form onSubmit={handleSubmit}>
+                  <Row className="mb-3">
+                    <Form.Group as={Col} md="12" controlId="emailValidation">
+                      <Form.Label>Email</Form.Label>
+                      <InputGroup>
+                        <Form.Control
+                          type="email"
+                          name="email"
+                          placeholder="Email"
+                          required
+                          autoComplete="username"
+                          onChange={handleChange}
+                          value={formData.email}
+                        />
+                      </InputGroup>
+                    </Form.Group>
+                  </Row>
+                  <Row className="mb-3">
+                    <Form.Group as={Col} md="12" controlId="passwordValidation">
+                      <Form.Label>Password</Form.Label>
+                      <InputGroup>
+                        <Form.Control
+                          type="password"
+                          name="password"
+                          placeholder="Password"
+                          required
+                          autoComplete="current-password"
+                          onChange={handleChange}
+                          value={formData.password}
+                        />
+                      </InputGroup>
+                    </Form.Group>
+                  </Row>
+                  <Row>
+                    <Col md="12">
+                      <Link className="register-link" to="/user/register">
+                        Not a member? Register here
+                      </Link>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col md="12" className="d-flex justify-content-center mt-3">
+                      <Button className="button" type="submit">
+                        Login
+                      </Button>
+                    </Col>
+                  </Row>
+                </Form>
+              </div>
+            ) : (
+              <div className="logged-in-message">
+                You are currently logged in as{" "}
+                {JSON.parse(localStorage.getItem("user")).firstName}
+              </div>
+            )}
           </div>
         </div>
       </div>
