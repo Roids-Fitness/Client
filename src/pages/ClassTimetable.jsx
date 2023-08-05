@@ -13,10 +13,7 @@ function ClassTimetable() {
   const [classesData, setClassesData] = useState(null);
   const navigate = useNavigate();
   const [viewType, setViewType] = useState("Week");
-
-  const handleEventClick = (args) => {
-    navigate(`/class/${args.e.id()}`);
-  };
+  const [numberOfClass, setNumberOfClass] = useState(0);
 
   useEffect(() => {
     const getClasses = async () => {
@@ -25,7 +22,9 @@ function ClassTimetable() {
         const response = await axios.get(`${apiURL}/class`);
         const events = convertClassData(response.data);
         const userLocalStorageData = localStorage.getItem("user");
-        const userId = userLocalStorageData ? JSON.parse(userLocalStorageData).id : null;
+        const userId = userLocalStorageData
+          ? JSON.parse(userLocalStorageData).id
+          : null;
         const colouredEvents = events.map((event) => ({
           ...event,
           backColor: event.participantList.includes(userId)
@@ -38,6 +37,7 @@ function ClassTimetable() {
         setClassesData(null);
       }
     };
+    
 
     getClasses();
   }, []);
@@ -63,8 +63,27 @@ function ClassTimetable() {
   useEffect(() => {
     if (classesData && calendarRef.current) {
       calendarRef.current.control.update({ events: classesData });
+
+      // Calculate the number of classes in the current week (Sunday to Saturday)
+      const today = new Date();
+      const startOfWeek = new Date(today);
+      startOfWeek.setDate(startOfWeek.getDate() - today.getDay()); // Set to Sunday of this week
+      const endOfWeek = new Date(today);
+      endOfWeek.setDate(endOfWeek.getDate() + (6 - today.getDay())); // Set to Saturday of this week
+
+      const classesThisWeek = classesData.filter(
+        (event) =>
+          event.backColor === "#FE3434" &&
+          new Date(event.start) >= startOfWeek &&
+          new Date(event.start) <= endOfWeek
+      );
+      setNumberOfClass(classesThisWeek.length);
     }
   }, [classesData]);
+
+  const handleEventClick = (args) => {
+    navigate(`/class/${args.e.id()}`);
+  };
 
   return (
     <>
@@ -73,9 +92,10 @@ function ClassTimetable() {
       </Helmet>
       <div className="word-container">
         <h1 className="title">Class Timetable</h1>
-        <p>
-          Select on the class the class you are interested in to sign up!
-        </p>
+        {localStorage.getItem("user") && localStorage.getItem("token") && (
+          <p>You have {numberOfClass} class(es) this week (shown in red).</p>
+        )}
+        <p>Select on the class the class you are interested in to sign up!</p>
       </div>
       <div className="calendar-container">
         <div>
