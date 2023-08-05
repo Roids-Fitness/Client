@@ -24,8 +24,8 @@ function ClassTimetable() {
         const apiURL = process.env.REACT_APP_API_URL;
         const response = await axios.get(`${apiURL}/class`);
         const events = convertClassData(response.data);
-        const userId = JSON.parse(localStorage.getItem("user")).id;
-        console.log("User ID:", userId); // Add this console.log statement
+        const userLocalStorageData = localStorage.getItem("user");
+        const userId = userLocalStorageData ? JSON.parse(userLocalStorageData).id : null;
         const colouredEvents = events.map((event) => ({
           ...event,
           backColor: event.participantList.includes(userId)
@@ -75,7 +75,6 @@ function ClassTimetable() {
         <h1 className="title">Class Timetable</h1>
         <p>
           Select on the class the class you are interested in to sign up!
-          {localStorage.getItem("user").id}
         </p>
       </div>
       <div className="calendar-container">

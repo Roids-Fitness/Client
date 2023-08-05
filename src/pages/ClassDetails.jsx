@@ -49,7 +49,7 @@ function ClassDetails() {
         navigate("/class");
       } else {
         alert("Please login to signup!");
-        navigate("/login");
+        navigate("/user/login");
       }
     } catch (error) {
       console.error("Error signing up:", error);
