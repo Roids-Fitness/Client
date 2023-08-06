@@ -68,7 +68,7 @@ function Login() {
   return (
     <>
       <Helmet>
-        <title>Login - Roids Fitness Gym</title>
+        <title>Login Page - Roids Fitness Gym</title>
       </Helmet>
       <div className="background-container" id="login-background-container">
         <div className="container">
